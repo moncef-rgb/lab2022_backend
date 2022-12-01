@@ -7,7 +7,7 @@ import com.example.demo.entities.Publication;
 
 public interface IPublicationService {
 	
-	//Crud sur les membres
+	//Crud sur les publications
 	public Publication addPublication(Publication m);
 	public void deletePublication(Long id) ;
 	public Publication updatePublication(Publication p) ;

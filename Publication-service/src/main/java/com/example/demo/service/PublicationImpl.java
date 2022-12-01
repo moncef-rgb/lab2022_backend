@@ -36,7 +36,7 @@ public class PublicationImpl implements IPublicationService {
 	@Override
 	public Publication findPublication(Long id) {
 		// TODO Auto-generated method stub
-		return (Publication)PublicationRepository.findById(1L).get();
+		return (Publication)PublicationRepository.findById(id).get();
 	}
 
 	@Override
@@ -73,7 +73,7 @@ public class PublicationImpl implements IPublicationService {
 	@Override
 	public List<Publication> findByLien(String lien){
 		// TODO Auto-generated method stub
-		return PublicationRepository.findByType(lien);
+		return PublicationRepository.findByLien(lien);
 	}
 
 }
