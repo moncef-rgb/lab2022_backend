@@ -26,7 +26,14 @@ public class PublicationServiceApplication implements CommandLineRunner {
 		// TODO Auto-generated method stub
 		Publication p1 = new  Publication();
 		p1.setDate(new Date());
+		p1.setLien("lien1");
+		p1.setTitre("titre1");
 		publicationService.addPublication(p1);
+		Publication p2 = new  Publication();
+		p2.setDate(new Date());
+		p2.setLien("lien2");
+		p2.setTitre("titre2");
+		publicationService.addPublication(p2);
 	
 		
 	}
