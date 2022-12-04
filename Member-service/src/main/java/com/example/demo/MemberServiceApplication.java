@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 import com.example.demo.entities.EnseignantChercheur;
 import com.example.demo.entities.Etudiant;
@@ -16,6 +17,7 @@ import com.example.demo.repository.MemberRepository;
 import com.example.demo.services.IMemberService;
 
 @SpringBootApplication
+@EnableDiscoveryClient
 public class MemberServiceApplication implements CommandLineRunner{
 	
 	@Autowired
