@@ -1,9 +1,9 @@
 package com.example.demo.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 
-import javax.annotation.Generated;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
@@ -14,6 +14,11 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
+import com.example.demo.bean.EvenementBean;
+import com.example.demo.bean.OutilBean;
+import com.example.demo.bean.PublicationBean;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -33,6 +38,49 @@ public abstract class Member implements Serializable {
 	private String email;
 	private String password;
 	
+	@Transient
+	Collection<PublicationBean> pubs;
+	
+	@Transient
+	Collection<OutilBean> outils;
+	
+	@Transient
+	Collection<EvenementBean> evenements;
+	
+	
+	
+	public Collection<EvenementBean> getEvenements() {
+		return evenements;
+	}
+
+
+	public void setEvenements(Collection<EvenementBean> evenements) {
+		this.evenements = evenements;
+	}
+
+
+	public Collection<PublicationBean> getPubs() {
+		return pubs;
+	}
+	
+	
+	public Collection<OutilBean> getOutils() {
+		return outils;
+	}
+
+
+
+
+	public void setOutils(Collection<OutilBean> outils) {
+		this.outils = outils;
+	}
+
+
+
+
+	public void setPubs(Collection<PublicationBean> pubs) {
+		this.pubs = pubs;
+	}
 	public Long getId() {
 		return id;
 	}

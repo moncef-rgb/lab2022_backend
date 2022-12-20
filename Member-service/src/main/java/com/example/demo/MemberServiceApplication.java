@@ -9,16 +9,33 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
+import com.example.demo.bean.EvenementBean;
+import com.example.demo.bean.OutilBean;
+import com.example.demo.bean.PublicationBean;
 import com.example.demo.entities.EnseignantChercheur;
 import com.example.demo.entities.Etudiant;
 import com.example.demo.entities.Member;
+import com.example.demo.proxy.EvenementProxyService;
+import com.example.demo.proxy.OutilProxyService;
+import com.example.demo.proxy.PublicationProxyService;
 import com.example.demo.repository.MemberRepository;
 import com.example.demo.services.IMemberService;
 
 @SpringBootApplication
 @EnableDiscoveryClient
+@EnableFeignClients
 public class MemberServiceApplication implements CommandLineRunner{
+	
+	@Autowired
+	PublicationProxyService publicationProxy;
+	
+	@Autowired
+	OutilProxyService outilProxy;
+	
+	@Autowired
+	EvenementProxyService evenementProxy;
 	
 	@Autowired
 	MemberRepository memberRepository;
@@ -87,6 +104,16 @@ public class MemberServiceApplication implements CommandLineRunner{
 		
 		memberService.updateMember(m);
 		memberService.deleteMember(3L);
+		
+		PublicationBean bean=publicationProxy.findPublicationById(1L);
+		System.out.println("the title is "+bean.getTitre());
+		
+		OutilBean outilBean=outilProxy.findOutilById(1L);
+		System.out.println("the source is "+outilBean.getSource());
+		
+		
+		EvenementBean evenementBean=evenementProxy.findEvenementById(1L);
+		System.out.println("the lieu is "+evenementBean.getLieu());
 	}
 
 }

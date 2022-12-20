@@ -23,67 +23,71 @@ import com.example.demo.services.IMemberService;
 @RestController
 @CrossOrigin
 public class MemberController {
-	
+
 	@Autowired
 	IMemberService memberService;
-	
-	@RequestMapping(value="/members", method=RequestMethod.GET)
-	public List<Member> findMembres (){
-	return memberService.findAll();
-	}
-	@GetMapping(value="/member/{id}")
-	public Member findOneMemberById(@PathVariable Long id){
-	return memberService.findMember(id);
-	}
-	
-	@GetMapping(value="/member/search/cin")
-	public Member findOneMemberByCin(@RequestParam String cin)
-	{
-	return memberService.findByCin(cin);
-	}
-	@GetMapping(value="/member/search/email")
-	public Member findOneMemberByEmail(@RequestParam String email)
-	{
-	return memberService.findByEmail(email);
-	}
-	
-	@PostMapping(value="/members/enseignant")
-	public Member addMembre(@RequestBody EnseignantChercheur m)
-	{
-	return memberService.addMember(m);
-	}
-	@PostMapping(value="/members/etudiant")
-	public Member addMembre(@RequestBody Etudiant e)
-	{
-	return memberService.addMember(e);
-	}
-	
-	@DeleteMapping(value="/members/{id}")
-	public void deleteMembre(@PathVariable Long id)
-	{
 
-	memberService.deleteMember(id);
+	@RequestMapping(value = "/members", method = RequestMethod.GET)
+	public List<Member> findMembres() {
+		return memberService.findAll();
+	}
+
+	@GetMapping(value = "/member/{id}")
+	public Member findOneMemberById(@PathVariable Long id) {
+		return memberService.findMember(id);
+	}
+
+	@GetMapping(value = "/member/search/cin")
+	public Member findOneMemberByCin(@RequestParam String cin) {
+		return memberService.findByCin(cin);
+	}
+
+	@GetMapping(value = "/member/search/email")
+	public Member findOneMemberByEmail(@RequestParam String email) {
+		return memberService.findByEmail(email);
+	}
+
+	@PostMapping(value = "/members/enseignant")
+	public Member addMembre(@RequestBody EnseignantChercheur m) {
+		return memberService.addMember(m);
+	}
+
+	@PostMapping(value = "/members/etudiant")
+	public Member addMembre(@RequestBody Etudiant e) {
+		return memberService.addMember(e);
+	}
+
+	@DeleteMapping(value = "/members/{id}")
+	public void deleteMembre(@PathVariable Long id) {
+
+		memberService.deleteMember(id);
 
 	}
-	
-	@PutMapping(value="/members/etudiant/{id}")
-	public Member updatemembre(@PathVariable Long id, @RequestBody
-	Etudiant p)
-	{
 
-	p.setId(id);
-	return memberService.updateMember(p);
+	@PutMapping(value = "/members/etudiant/{id}")
+	public Member updatemembre(@PathVariable Long id, @RequestBody Etudiant p) {
+
+		p.setId(id);
+		return memberService.updateMember(p);
 
 	}
-	@PutMapping(value="/members/enseignant/{id}")
-	public Member updateMembre(@PathVariable Long id, @RequestBody
-	EnseignantChercheur p)
-	{
 
-	p.setId(id);
-	return memberService.updateMember(p);
+	@PutMapping(value = "/members/enseignant/{id}")
+	public Member updateMembre(@PathVariable Long id, @RequestBody EnseignantChercheur p) {
+
+		p.setId(id);
+		return memberService.updateMember(p);
 
 	}
-	
+
+	@GetMapping("/fullmember/{id}")
+	public Member findAFullMember(@PathVariable(name = "id") Long id) {
+
+		Member mbr = memberService.findMember(id);
+		mbr.setPubs(memberService.findPublicationparauteur(id));
+		mbr.setOutils(memberService.findOutilparmember(id));
+		mbr.setEvenements(memberService.findEvenementparmember(id));
+		return mbr;
+	}
 
 }
